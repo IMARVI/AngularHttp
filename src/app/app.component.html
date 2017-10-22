@@ -1,9 +1,40 @@
-<nav>
-  <button (click) = "getDetalle('Mexico')" >Mexico City </button>
-  <button (click) = "getDetalle('Paris')" > Paris </button>
-  <button (click) = "getDetalle('Germany')" > Germany </button>
+<nav class="nav nav-pills nav-fill">
+  <a class="nav-item nav-link active" href (click) = "getDetalle('Mexico')" >Mexico City </a>
+  <a class="nav-item nav-link" href (click) = "getDetalle('Paris')" > Paris </a>
+  <a class="nav-item nav-link" href (click) = "getDetalle('London')" > London </a>
+  <a class="nav-item nav-link" href (click) = "getDetalle('Berlin')" > Berlin </a>
+  <a class="nav-item nav-link" href (click) = "getDetalle('Madrid')" > Madrid </a>
 </nav>
 
-<div *ngIf="datos">
-    <h2>{{datos["city"].name}} </h2>
+<div *ngIf="forecast.city && weather.main">
+    <div class="card border-light">
+    	<div class="card-body">
+    		<h2 class="card-title">{{forecast.city.name}} </h2>
+    		<div class="card-text">
+    			<div class="row">
+				  <div class="col-sm-8">
+				  	<h4>{{weather.main.temp}}°C</h4>
+    				<h6 class="text-muted">{{weather.wind.speed}} m/s</h6>
+				  </div>
+				  <div class="col-sm-4">
+				  	<img src="http://openweathermap.org/img/w/{{weather.weather[0].icon}}.png" style="width: 100px">
+				  </div>
+				</div>
+    		</div>
+    	</div>
+    </div>
+    <h4>Forecast</h4>
+    <div class="card-columns">
+	    <div *ngFor="let dia of forecast.list;  let i=index">
+	    	<div class="card text-center">
+	    		<div class="card-body">
+					<div class="card-title">
+						<h4>{{dia.main.temp}}°C </h4>	
+						<img src="http://openweathermap.org/img/w/{{dia.weather[0].icon}}.png">
+					</div>
+					<p class="card-text"><small class="text-muted">{{dia.dt_txt}}</small></p>	
+		    	</div>
+	    	</div>
+	    </div>
+	</div>
 </div>
